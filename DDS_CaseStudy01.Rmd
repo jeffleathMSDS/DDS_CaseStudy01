@@ -1,0 +1,76 @@
+---
+title: "DDS Case Study 1"
+author: "Ganesh  and Jeff Leath"
+date: "October 8, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(ggplot2)
+```
+
+## Beginning
+
+This is a placehold.  I am building a shell we can use to build the workproduct.
+
+```{r}
+1+1
+```
+
+## Introduction
+
+Placeholder for introduction to the project.
+
+a.	Introduction to the project. The introduction should not reference a project, persay. No part of this should be informal.
+
+
+## Questions
+
+
+1.	How many breweries are present in each state?
+
+```{r}
+1+1
+```
+
+
+2.	Merge beer data with the breweries data. Print the first 6 observations and the last six observations to check the merged file.
+
+```{r}
+1+1
+```
+3.	Report the number of NA's in each column.
+
+```{r}
+1+1
+```
+4.	Compute the median alcohol content and international bitterness unit for each state. Plot a bar chart to compare.
+
+```{r}
+1+1
+```
+
+5.	Which state has the maximum alcoholic (ABV) beer? Which state has the most bitter (IBU) beer?
+
+```{r}
+1+1
+```
+
+6.	Summary statistics for the ABV variable.
+
+```{r}
+1+1
+```
+
+7.	Is there an apparent relationship between the bitterness of the beer and its alcoholic content? Draw a scatter plot.
+
+```{r}
+2+2
+```
+
+
+## Conclussion
+
+Placeholder for conclussion to the project.
+
