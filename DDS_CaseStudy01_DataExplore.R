@@ -57,6 +57,21 @@ medianIBU <-aggregate(IBU ~ State, newtable, median)
 
 ## Q5:  Which state has the maximum alcoholic (ABV) beer? Which state has the most bitter (IBU) beer?
 
+## table of max ABV by state
+maxABV <-aggregate(ABV ~ State, newtable, max)
+## sort
+maxABV <-maxABV[order(-maxABV$ABV),]
+## Top 5 results
+head(maxABV,5)
+
+## table of max IBU by state
+maxIBU <-aggregate(IBU ~ State, newtable, max)
+## sort
+maxIBU <-maxIBU[order(-maxIBU$IBU),]
+## Top 5 results
+head(maxIBU,5)
+
+
 
 ## Q6:  Summary statistics for the ABV variable.
 summary(newtable$ABV)
