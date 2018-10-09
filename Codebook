@@ -1,0 +1,18 @@
+This is a codebook reference for the files/data in our repo.
+
+
+README:  explanatory
+
+Original Data files:  Beers.csv, Breweries.csv
+
+Case Study 1.docx:   Assignment instructions
+DDS_CaseStudy01.Rmd:  Rmarkdown file
+
+DDS_CaseStudy01.Rproj: r project
+
+DDS_CaseStudy01.html:  output of the knitr/RMarkdown file
+
+DDS_CaseStudy01.twb: Tableau workbook with visualizations
+
+DDS_CaseStudy01.DataExplore.R: R Script file used to explore/wrangle the data set(s)
+
