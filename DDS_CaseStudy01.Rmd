@@ -1,28 +1,58 @@
 ---
 title: "DDS Case Study 1"
-author: "Ganesh  and Jeff Leath"
+author: "Ganesh  and Jeff"
 date: "October 8, 2018"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+
+## Load packages
+library(plyr)
+library(tidyr)
+library(dplyr)
+library(base)
 library(ggplot2)
+
+## read in brewery csv file
+brewery = read.csv("Source/Breweries.csv", header = TRUE)
+str(brewery)
+## change names in file
+names(brewery) <-c("Brewery_id","Brewery_Name", "City", "State")
+str(brewery)
+
+
+## read in beers csv file
+beers = read.csv("Source/Beers.csv", header = TRUE)
+str(beers)
+
+
+
+
 ```
 
-## Beginning
 
-This is a placehold.  I am building a shell we can use to build the workproduct.
 
-```{r}
-1+1
-```
+## ** Background **
+
+Backgound:
+
+GJ Brewhouse, is a startup microbrewery that is researching the existing 'craft brew' market in the US.  They have raised funds that will allow them to grow and they want to survey the landscape to identify space to fill a niche.
+
+GJ Brewhouse has commissioned market research from leading Data Scientist, Ganesh and Jeff, who tutored under world renown Data Scientist, Jacquelyn Cheun.
+
+The principal 'customer' at GJ Brewhouse, is JC, who is Vice-President of Analytics.  The presentation will have some technical components, at the request of JC.
 
 ## Introduction
 
-Placeholder for introduction to the project.
+Good Evening,
 
-a.	Introduction to the project. The introduction should not reference a project, persay. No part of this should be informal.
+My name is Jeff, who along with my partner, Ganesh, are pleased to report back to you on your request for information and data available relative to the Craft Brew market in the continental US.
+
+We will be addressing the six specific questions outlined in your RFI, but will be glad to deep dive into any area as you would like.
+
+I understand your technical prowress, so we will also provide a flavor of the underlying process.
 
 
 ## Questions
@@ -31,24 +61,57 @@ a.	Introduction to the project. The introduction should not reference a project,
 1.	How many breweries are present in each state?
 
 ```{r}
-1+1
+## Answer Question 1:  Brewery count by state
+table(brewery$State)
 ```
 
 
-2.	Merge beer data with the breweries data. Print the first 6 observations and the last six observations to check the merged file.
+2.	We have merged the current beer product and active brewery lists to provide a meshed data product.  Will are displaying a snapshot of the data as an example. 
 
 ```{r}
-1+1
+## Merge files
+newtable <- merge(beers, brewery, by="Brewery_id")
+## NOT USED str(newtable)
+
+## first 6 records
+head(newtable,6)
+
+## last 6 records
+tail(newtable, 6)
+
+
+
+
 ```
-3.	Report the number of NA's in each column.
+3.	You had asked us to quantify the breadth of the data.  Below, we are displying the number of missing data elements (i.e. NA's) in for each data field.
 
 ```{r}
-1+1
+## this code counts the N/A for each column
+na_count <-sapply(newtable, function(y) sum(length(which(is.na(y)))))
+na_count
 ```
-4.	Compute the median alcohol content and international bitterness unit for each state. Plot a bar chart to compare.
+4.	Compute the median alcohol content and international bitterness unit for each state. 
+
+
 
 ```{r}
-1+1
+## calc median ABV by state
+medianABV <-aggregate(ABV ~ State, newtable, median)
+
+
+## need bar plot
+
+
+## calc median IBU by state
+medianIBU <-aggregate(IBU ~ State, newtable, median)
+
+
+## merging the two tables
+q4 <- merge(medianABV, medianIBU, by="State")
+names(q4) <-c("State","Median ABV","Median IBU")
+q4
+
+## need bar plot
 ```
 
 5.	Which state has the maximum alcoholic (ABV) beer? Which state has the most bitter (IBU) beer?
