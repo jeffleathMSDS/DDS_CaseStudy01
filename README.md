@@ -1,26 +1,26 @@
 # DDS_CaseStudy01
-# Authors : Jeff and Ganesh
+## Authors : Jeff and Ganesh
 This project is part of Fall 2018 MSDS 6306 Doing Data Science case study.
 Intent of project is to provide the information for specific queries raised as part of the case study
 
-Source files used:
+### Source files used:
 	Breweries.csv
 	Beers.csv
 
-Technology:
+### Technology:
 Project is built using r, RMarkdown and knitr
 
-Source Code:
+### Source Code:
 	DDS_CaseStudy01.Rmd
 
-Open-source library used are:
+### Open-source library used are:
 	plyr
 	tidyr
 	dplyr
 	base
 	ggplot2
 
-Generated Result file:
+### Generated Result file:
 	DDS_CaseStudy01.Html
 
 
