@@ -48,11 +48,11 @@ The principal 'customer' at GJ Brewhouse, is JC, who is Vice-President of Analyt
 
 Good Evening,
 
-My name is Jeff, who along with my partner, Ganesh, are pleased to report back to you on your request for information and data available relative to the Craft Brew market in the continental US.
+We, Jeff and Ganesh, are pleased to report back to you on your request for information and data available relative to the Craft Brew market in the continental US.
 
 We will be addressing the six specific questions outlined in your RFI, but will be glad to deep dive into any area as you would like.
 
-I understand your technical prowress, so we will also provide a flavor of the underlying process.
+We understand your technical prowress, so we will also provide a flavor of the underlying process.
 
 
 ## Questions
@@ -60,7 +60,8 @@ I understand your technical prowress, so we will also provide a flavor of the un
 
 1.	How many breweries are present in each state?
 
-```{r}
+Following are the tables explaining about Statewise brewery counts
+```{r brewery_data, echo=TRUE} 
 ## Answer Question 1:  Brewery count by state
 table(brewery$State)
 ```
@@ -68,24 +69,29 @@ table(brewery$State)
 
 2.	We have merged the current beer product and active brewery lists to provide a meshed data product.  Will are displaying a snapshot of the data as an example. 
 
-```{r}
+a. First 6 records are below
+```{r merged_files, echo=TRUE}
 ## Merge files
 newtable <- merge(beers, brewery, by="Brewery_id")
 ## NOT USED str(newtable)
 
-## first 6 records
+## first 6 records of merged files
 head(newtable,6)
+
+```
+
+b. Last 6 records are as follows
+
+```{r merged_last_6, echo=TRUE}
 
 ## last 6 records
 tail(newtable, 6)
-
-
-
-
 ```
+
+
 3.	You had asked us to quantify the breadth of the data.  Below, we are displying the number of missing data elements (i.e. NA's) in for each data field.
 
-```{r}
+```{r missing_na, echo=TRUE}
 ## this code counts the N/A for each column
 na_count <-sapply(newtable, function(y) sum(length(which(is.na(y)))))
 na_count
@@ -94,7 +100,7 @@ na_count
 
 
 
-```{r}
+```{r statewise_abv_ibu, echo=TRUE}
 ## calc median ABV by state
 medianABV <-aggregate(ABV ~ State, newtable, median)
 
@@ -116,21 +122,52 @@ q4
 
 5.	Which state has the maximum alcoholic (ABV) beer? Which state has the most bitter (IBU) beer?
 
-```{r}
-1+1
+a. State with maximun  alcoholic beer :
+```{r max_abv, echo=TRUE}
+## State which is having maximum alcoholic content
+## Find Max alcoholic content beer (column ABV) from newtable
+## Identify the index of the max 
+## Display the value of state column represents the max alcoholic content beer
+maxABV <- max(newtable$ABV, na.rm = TRUE)
+maxABVIndex <- which(newtable$ABV == maxABV )
+trimws(as.character(newtable$State[maxABVIndex]))
+## Highest alcoholic content state
+## trimws(as.character(medianABV$State[which(medianABV$ABV == max(medianABV$ABV))]))
+## 
+
+```
+
+b. State with most bitter beer : 
+```{r max_ibu, echo=TRUE}
+## State which is having most bitter content
+## Find most bitter content beer (column IBU) from newtable
+## Identify the index of the max 
+## Display the value of state column represents the most bitter content beer
+maxIBU <- max(newtable$IBU, na.rm = TRUE)
+maxIBUIndex <- which(newtable$IBU == maxIBU )
+as.character(newtable$State[maxIBUIndex])
+## Most aggregated bitter content state 
+## trimws(as.character(medianIBU$State[which(medianIBU$IBU == max(medianIBU$IBU))]))
 ```
 
 6.	Summary statistics for the ABV variable.
 
-```{r}
-1+1
+```{r abv_summary, echo=TRUE}
+## Summary of the ABV 
+summary(newtable$ABV)
 ```
 
 7.	Is there an apparent relationship between the bitterness of the beer and its alcoholic content? Draw a scatter plot.
 
-```{r}
-2+2
+Follwoing Scatter plot shows relation between bitterness and alcoholic content
+
+```{r ibu_vs_abv_scatter, echo=TRUE}
+## Draw scatter plot using ggplot2 to determine the relation between ABV and IBU
+ggplot(na.omit(newtable), aes(x=ABV, y=IBU))+geom_point()+ylab("Bitterness (IBU)")+xlab("Alcoholic Content (ABV)")+ggtitle("Bitterness affect of Alcoholic content in Beer")
+
 ```
+
+Above plot indicates that bitterness value increases with alocoholic content in beer, though there are few exceptions 
 
 
 ## Conclussion
