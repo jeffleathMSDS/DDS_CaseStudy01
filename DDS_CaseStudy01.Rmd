@@ -105,12 +105,19 @@ na_count
 medianABV <-aggregate(ABV ~ State, newtable, median)
 
 
-## need bar plot
+## bar plot for median ABV
+countABV <- table(medianABV$ABV)
+barplot(countABV, main="Median ABV by State", 
+        xlab="ABV")
 
 
 ## calc median IBU by state
 medianIBU <-aggregate(IBU ~ State, newtable, median)
 
+## bar plot for median IBU
+countIBU <- table(medianIBU$IBU)
+barplot(countIBU, main="Median IBU by State", 
+        xlab="IBU")
 
 ## merging the two tables
 q4 <- merge(medianABV, medianIBU, by="State")

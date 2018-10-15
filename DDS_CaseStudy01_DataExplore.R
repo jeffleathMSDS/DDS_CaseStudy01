@@ -10,7 +10,7 @@ library(base)
 library(ggplot2)
 
 ## read in brewery csv file
-brewery = read.csv("Breweries.csv", header = TRUE)
+brewery = read.csv("Source/Breweries.csv", header = TRUE)
 str(brewery)
 ## change names in file
 names(brewery) <-c("Brewery_id","Brewery_Name", "City", "State")
@@ -18,7 +18,7 @@ str(brewery)
 
 
 ## read in beers csv file
-beers = read.csv("beers.csv", header = TRUE)
+beers = read.csv("Source/beers.csv", header = TRUE)
 str(beers)
 
 ## Answer Question 1:  Brewery count by state
@@ -47,13 +47,18 @@ na_count
 ## calc median ABV by state
 medianABV <-aggregate(ABV ~ State, newtable, median)
 
-## need bar plot
-
+## bar plot for median ABV
+countABV <- table(medianABV$ABV)
+barplot(countABV, main="Median ABV by State", 
+        xlab="ABV")
 
 ## calc median IBU by state
 medianIBU <-aggregate(IBU ~ State, newtable, median)
 
-## need bar plot
+## bar plot for median IBU
+countIBU <- table(medianIBU$IBU)
+barplot(countIBU, main="Median IBU by State", 
+        xlab="IBU")
 
 ## Q5:  Which state has the maximum alcoholic (ABV) beer? Which state has the most bitter (IBU) beer?
 
