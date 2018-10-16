@@ -1,7 +1,7 @@
 ---
 title: "DDS Case Study 1"
-author: "Ganesh  and Jeff"
-date: "October 8, 2018"
+author: "Ganesh Kodi  and Jeff Leath"
+date: "October 16, 2018"
 output: html_document
 ---
 
@@ -52,7 +52,7 @@ We, Jeff and Ganesh, are pleased to report back to you on your request for infor
 
 We will be addressing the six specific questions outlined in your RFI, but will be glad to deep dive into any area as you would like.
 
-We understand your technical prowress, so we will also provide a flavor of the underlying process.
+We understand your technical prowress, so we will also provide a flavor of the underlying data, code and process.
 
 
 ## Questions
@@ -60,16 +60,16 @@ We understand your technical prowress, so we will also provide a flavor of the u
 
 1.	How many breweries are present in each state?
 
-Following are the tables explaining about Statewise brewery counts
+The following table displays the total count of breweries in each state.
 ```{r brewery_data, echo=TRUE} 
 ## Answer Question 1:  Brewery count by state
 table(brewery$State)
 ```
 
 
-2.	We have merged the current beer product and active brewery lists to provide a meshed data product.  Will are displaying a snapshot of the data as an example. 
+2.	We have merged the current beer product and active brewery lists to provide a meshed data product.  We are displaying a snapshot of the data as an example. 
 
-a. First 6 records are below
+a. These are the first six (6) records.
 ```{r merged_files, echo=TRUE}
 ## Merge files
 newtable <- merge(beers, brewery, by="Brewery_id")
@@ -80,7 +80,7 @@ head(newtable,6)
 
 ```
 
-b. Last 6 records are as follows
+b. These are the last six (6) records.
 
 ```{r merged_last_6, echo=TRUE}
 
@@ -89,7 +89,7 @@ tail(newtable, 6)
 ```
 
 
-3.	You had asked us to quantify the breadth of the data.  Below, we are displying the number of missing data elements (i.e. NA's) in for each data field.
+3.	You had asked us to quantify the quality of the data.  Below, we are displying the number of missing data elements (i.e. NA's) in for each data field.
 
 ```{r missing_na, echo=TRUE}
 ## this code counts the N/A for each column
@@ -98,38 +98,47 @@ na_count
 ```
 4.	Compute the median alcohol content and international bitterness unit for each state. 
 
-
+-The table below displays the Median ABV and Meidan IBU for each state.
 
 ```{r statewise_abv_ibu, echo=TRUE}
 ## calc median ABV by state
 medianABV <-aggregate(ABV ~ State, newtable, median)
 
-
-## bar plot for median ABV
-countABV <- table(medianABV$ABV)
-barplot(countABV, main="Median ABV by State", 
-        xlab="ABV")
-
-## comparing alcoholic content along different states
-ggplot(na.omit(newtable),aes(x=State, y=ABV))+geom_bar(aes(fill = ABV),stat = "identity",position = "dodge")+theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))
-
 ## calc median IBU by state
 medianIBU <-aggregate(IBU ~ State, newtable, median)
-
-## bar plot for median IBU
-countIBU <- table(medianIBU$IBU)
-barplot(countIBU, main="Median IBU by State", 
-        xlab="IBU")
-
-## comparing bitterness values along different states
-ggplot(na.omit(newtable),aes(x=State, y=IBU))+geom_bar(aes(fill = IBU),stat = "identity",position = "dodge")+theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))
 
 ## merging the two tables
 q4 <- merge(medianABV, medianIBU, by="State")
 names(q4) <-c("State","Median ABV","Median IBU")
-q4
 
-## need bar plot
+##Prints the combined table displaying the Median ABV and IBU by state
+q4
+```
+
+These bar plots provide two vantage points of the Median ABV and Meidan IBU.
+
+``` {r bar plots, echo=TRUE}
+
+## bar plot for median ABV
+countABV <- table(medianABV$ABV)
+barplot(countABV, main="Median ABV by State", 
+        xlab="ABV", ylab = "Number of States")
+
+## comparing alcoholic content along different states
+ggplot(na.omit(newtable),aes(x=State, y=ABV))+geom_bar(aes(fill = ABV),stat = "identity",position = "dodge")+theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))
+
+
+
+## bar plot for median IBU
+countIBU <- table(medianIBU$IBU)
+barplot(countIBU, main="Median IBU by State", 
+        xlab="IBU", ylab = "Number of States")
+
+## comparing bitterness values along different states
+ggplot(na.omit(newtable),aes(x=State, y=IBU))+geom_bar(aes(fill = IBU),stat = "identity",position = "dodge")+theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))
+
+
+
 ```
 
 5.	Which state has the maximum alcoholic (ABV) beer? Which state has the most bitter (IBU) beer?
@@ -184,5 +193,19 @@ Above plot indicates that bitterness value increases with alocoholic content in 
 
 ## Conclussion
 
-Placeholder for conclussion to the project.
+In conclussion, after exhaustive study of the available data, we have two recommendations for BJ Brewhouse.
+
+Recommendation 1:
+With Colorado is having largest number of breweries, availability of resources and expertise make it the best location for starting new factory.
+
+Recommendation 2:
+New beer recommendation is to start with country wide average:
+		 IBU (42.71) and ABV (0.05977)
+
+It was our pleasure to provide this service to BJ Brewhouse.  If there are follow-up questions of interest, please let us know.
+
+-Ganesh Kodi
+
+-Jeff Leath
+
 
