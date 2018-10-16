@@ -81,4 +81,8 @@ head(maxIBU,5)
 ## Q6:  Summary statistics for the ABV variable.
 summary(newtable$ABV)
 
+# comparing alcoholic content along different states
+ggplot(na.omit(newtable),aes(x=State, y=ABV))+geom_bar(aes(fill = ABV),stat = "identity",position = "dodge")+theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))
 
+## comparing bitterness values along different states
+ggplot(na.omit(newtable),aes(x=State, y=IBU))+geom_bar(aes(fill = IBU),stat = "identity",position = "dodge")+theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))

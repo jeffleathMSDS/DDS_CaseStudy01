@@ -110,6 +110,8 @@ countABV <- table(medianABV$ABV)
 barplot(countABV, main="Median ABV by State", 
         xlab="ABV")
 
+## comparing alcoholic content along different states
+ggplot(na.omit(newtable),aes(x=State, y=ABV))+geom_bar(aes(fill = ABV),stat = "identity",position = "dodge")+theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))
 
 ## calc median IBU by state
 medianIBU <-aggregate(IBU ~ State, newtable, median)
@@ -118,6 +120,9 @@ medianIBU <-aggregate(IBU ~ State, newtable, median)
 countIBU <- table(medianIBU$IBU)
 barplot(countIBU, main="Median IBU by State", 
         xlab="IBU")
+
+## comparing bitterness values along different states
+ggplot(na.omit(newtable),aes(x=State, y=IBU))+geom_bar(aes(fill = IBU),stat = "identity",position = "dodge")+theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))
 
 ## merging the two tables
 q4 <- merge(medianABV, medianIBU, by="State")
